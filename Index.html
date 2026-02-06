@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Portfolio</title>
+    <style>
+        :root {
+            --accent: #00f2ff;
+            --bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background: var(--bg);
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, #302b63, transparent 50%);
+            z-index: -1;
+        }
+
+        header {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container { width: 90%; max-width: 450px; }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 40%; height: 1px;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        footer { margin: 40px; opacity: 0.3; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <header>
+        <h1>DESIGNER</h1>
+        <p style="opacity: 0.5; letter-spacing: 2px;">PORTFOLIO</p>
+    </header>
+
+    <div class="container">
+        <div class="glass-card">
+            <h3 style="color: var(--accent); margin-top: 0;">PROJECTS</h3>
+            <p>Мой крутой проект, созданный полностью на смартфоне.</p>
+        </div>
+
+        <div class="glass-card">
+            <h3 style="color: var(--accent); margin-top: 0;">SKILLS</h3>
+            <p>UI/UX Design • Web Development • AI Tools</p>
+        </div>
+
+        <a href="
