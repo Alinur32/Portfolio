@@ -6,28 +6,30 @@
     <title>Alinur | SMM Legend</title>
     <style>
         :root {
-            --accent: #00f2ff;
-            --accent-glow: rgba(0, 242, 255, 0.5);
-            --bg: #050505;
-            --card-bg: rgba(15, 15, 15, 0.8);
+            --accent: #0095f6; /* Более насыщенный голубой для белого фона */
+            --accent-glow: rgba(0, 149, 246, 0.2);
+            --bg: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #000000;
+            --text-sub: #666666;
         }
 
         body {
             background: var(--bg);
-            color: #fff;
+            color: var(--text-main);
             font-family: 'Inter', -apple-system, sans-serif;
             margin: 0;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Анимированный фон */
+        /* Анимированный светлый фон */
         .bg-mesh {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                radial-gradient(circle at 10% 10%, #0a1a20 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, #1a0a1a 0%, transparent 40%);
+                radial-gradient(circle at 10% 10%, #f0f9ff 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, #fdf2f8 0%, transparent 40%);
             z-index: -1;
         }
 
@@ -36,7 +38,7 @@
             width: 400px; height: 400px;
             background: var(--accent);
             filter: blur(150px);
-            opacity: 0.1;
+            opacity: 0.1; /* Очень мягкий блик */
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
@@ -65,12 +67,12 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.03);
             padding: 8px 16px;
             border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 1px;
             color: var(--accent);
             text-transform: uppercase;
@@ -82,9 +84,7 @@
             font-weight: 900;
             line-height: 0.9;
             letter-spacing: -2px;
-            background: linear-gradient(to bottom, #fff 40%, #555);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
         }
 
         /* Слайдер */
@@ -105,7 +105,7 @@
             border-radius: 40px;
             scroll-snap-align: center;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -113,16 +113,17 @@
             padding: 35px;
             box-sizing: border-box;
             transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
         .card.active {
-            border-color: rgba(0, 242, 255, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+            border-color: rgba(0, 149, 246, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
             transform: translateY(-10px) scale(1.02);
         }
 
         .card-content { transition: 0.4s; }
-        .card:not(.active) .card-content { opacity: 0.4; filter: blur(2px); }
+        .card:not(.active) .card-content { opacity: 0.3; filter: blur(1px); }
 
         .category {
             font-size: 12px;
@@ -138,18 +139,19 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 25px;
+            color: var(--text-main);
         }
 
         .metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
             padding-top: 25px;
         }
 
-        .m-title { font-size: 10px; opacity: 0.4; text-transform: uppercase; display: block; }
-        .m-num { font-size: 18px; font-weight: 800; color: #fff; }
+        .m-title { font-size: 10px; color: var(--text-sub); text-transform: uppercase; display: block; font-weight: 600; }
+        .m-num { font-size: 18px; font-weight: 800; color: var(--text-main); }
 
         /* Кнопка */
         .footer-action {
@@ -158,8 +160,8 @@
         }
 
         .btn {
-            background: #fff;
-            color: #000;
+            background: #000;
+            color: #fff;
             height: 70px;
             border-radius: 35px;
             display: flex;
@@ -171,6 +173,7 @@
             position: relative;
             overflow: hidden;
             transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .btn:active { transform: scale(0.95); background: var(--accent); }
@@ -179,7 +182,7 @@
             content: '';
             position: absolute;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transform: translateX(-100%);
             animation: shine 3s infinite;
         }
@@ -197,7 +200,7 @@
     <div class="app">
         <header>
             <div class="premium-tag">
-                <span style="color: #0f0;">●</span> Status: Creative Mode
+                <span style="color: #22c55e;">●</span> Status: Creative Mode
             </div>
             <h1>Premium<br>SMM Work</h1>
         </header>
@@ -222,56 +225,4 @@
                         <div><span class="m-title">Leads</span><span class="m-num">1.8k</span></div>
                         <div><span class="m-title">ROI</span><span class="m-num">450%</span></div>
                     </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-content">
-                    <span class="category">Ads</span>
-                    <div class="title">Таргет на премиум сегмент</div>
-                    <div class="metrics">
-                        <div><span class="m-title">CTR</span><span class="m-num">3.2%</span></div>
-                        <div><span class="m-title">CPA</span><span class="m-num">$0.45</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-action">
-            <a href="https://t.me/alinur32" class="btn">СТАРТОВАТЬ ПРОЕКТ</a>
-        </div>
-    </div>
-
-    <script>
-        const scroller = document.getElementById('scroller');
-        const cards = document.querySelectorAll('.card');
-
-        const updateCards = () => {
-            const center = scroller.scrollLeft + scroller.offsetWidth / 2;
-            cards.forEach(card => {
-                const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-                const distance = Math.abs(center - cardCenter);
-                
-                if (distance < 150) {
-                    card.classList.add('active');
-                } else {
-                    card.classList.remove('active');
-                }
-            });
-        };
-
-        scroller.addEventListener('scroll', updateCards);
-        window.addEventListener('load', updateCards);
-
-        // Haptic-эффект при нажатии (визуальный)
-        cards.forEach(card => {
-            card.addEventListener('touchstart', () => {
-                card.style.transform = 'scale(0.95)';
-            });
-            card.addEventListener('touchend', () => {
-                card.style.transform = '';
-            });
-        });
-    </script>
-</body>
-</html>
+                    
