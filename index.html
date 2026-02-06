@@ -3,236 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Alinur | SMM Portfolio</title>
+    <title>Alinur | SMM Legend</title>
     <style>
         :root {
-            --accent: #0095f6; /* Тот самый голубой из Instagram */
-            --bg: #ffffff;
-            --secondary-bg: #fafafa;
-            --text-main: #262626;
-            --text-sub: #8e8e8e;
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --accent: #00f2ff;
+            --accent-glow: rgba(0, 242, 255, 0.5);
+            --bg: #050505;
+            --card-bg: rgba(15, 15, 15, 0.8);
         }
 
         body {
             background: var(--bg);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #fff;
+            font-family: 'Inter', -apple-system, sans-serif;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Мягкая анимация появления */
-        @keyframes slideFade {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Анимированный фон */
+        .bg-mesh {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 10%, #0a1a20 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, #1a0a1a 0%, transparent 40%);
+            z-index: -1;
         }
 
-        .app-header {
-            padding: 40px 25px 20px;
-            background: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+        .glow-sphere {
+            position: fixed;
+            width: 400px; height: 400px;
+            background: var(--accent);
+            filter: blur(150px);
+            opacity: 0.1;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: move 20s infinite alternate;
         }
 
-        .insta-badge {
+        @keyframes move {
+            from { transform: translate(-50%, -50%); }
+            to { transform: translate(50%, 50%); }
+        }
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 40px 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            padding: 0 30px;
+            margin-bottom: 40px;
+        }
+
+        .premium-tag {
             display: inline-flex;
             align-items: center;
-            padding: 5px 12px;
-            background: var(--secondary-bg);
-            border-radius: 8px;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 600;
+            letter-spacing: 1px;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
         }
 
         h1 {
-            font-size: 32px;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -1px;
+            font-size: 48px;
+            margin: 20px 0 10px;
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff 40%, #555);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .bio {
-            font-size: 15px;
-            color: var(--text-sub);
-            margin-top: 8px;
-            line-height: 1.4;
-        }
-
-        /* Контейнер для карточек */
-        .feed-container {
+        /* Слайдер */
+        .slider {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 15px;
-            padding: 20px 25px 40px;
+            gap: 20px;
+            padding: 20px 30px;
             scrollbar-width: none;
         }
-        .feed-container::-webkit-scrollbar { display: none; }
+        .slider::-webkit-scrollbar { display: none; }
 
-        .insta-card {
-            min-width: 85vw;
-            background: #fff;
-            border-radius: 24px;
-            border: 1px solid #efefef;
-            box-shadow: var(--card-shadow);
+        .card {
+            min-width: 280px;
+            height: 420px;
+            background: var(--card-bg);
+            border-radius: 40px;
             scroll-snap-align: center;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            animation: slideFade 0.8s ease forwards;
+            justify-content: flex-end;
+            padding: 35px;
+            box-sizing: border-box;
+            transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
-        .card-image-placeholder {
-            width: 100%;
-            height: 240px;
-            background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
+        .card.active {
+            border-color: rgba(0, 242, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .card-content { transition: 0.4s; }
+        .card:not(.active) .card-content { opacity: 0.4; filter: blur(2px); }
+
+        .category {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+        }
+
+        .m-title { font-size: 10px; opacity: 0.4; text-transform: uppercase; display: block; }
+        .m-num { font-size: 18px; font-weight: 800; color: #fff; }
+
+        /* Кнопка */
+        .footer-action {
+            padding: 30px;
+            margin-top: auto;
+        }
+
+        .btn {
+            background: #fff;
+            color: #000;
+            height: 70px;
+            border-radius: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
-        }
-
-        .card-body {
-            padding: 25px;
-        }
-
-        .card-tag {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .card-stats {
-            display: flex;
-            gap: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #fafafa;
-        }
-
-        .stat-box span {
-            display: block;
+            text-decoration: none;
+            font-weight: 900;
             font-size: 16px;
-            font-weight: 800;
-        }
-        .stat-box label {
-            font-size: 10px;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
         }
 
-        /* Кнопки как в профиле инсты */
-        .actions {
-            padding: 0 25px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .btn:active { transform: scale(0.95); background: var(--accent); }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: translateX(-100%);
+            animation: shine 3s infinite;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: #fff;
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 15px;
-            transition: 0.2s;
-        }
-
-        .btn-secondary {
-            background: #efefef;
-            color: var(--text-main);
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 15px;
-        }
-
-        .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
-
-        footer {
-            text-align: center;
-            padding-bottom: 30px;
-            font-size: 11px;
-            color: var(--text-sub);
-            font-weight: 500;
+        @keyframes shine {
+            to { transform: translateX(100%); }
         }
     </style>
 </head>
 <body>
 
-    <header class="app-header">
-        <div class="insta-badge">Creative Expert</div>
-        <h1>Alinur</h1>
-        <div class="bio">SMM Стратегия • Контент • Продвижение<br>Помогаю брендам расти через визуал.</div>
-    </header>
+    <div class="bg-mesh"></div>
+    <div class="glow-sphere"></div>
 
-    <div class="feed-container">
-        <div class="insta-card">
-            <div class="card-image-placeholder">💎</div>
-            <div class="card-body">
-                <span class="card-tag">Beauty Sector</span>
-                <div class="card-title">Разработка визуального стиля для сети салонов</div>
-                <div class="card-stats">
-                    <div class="stat-box"><span>+140%</span><label>Охват</label></div>
-                    <div class="stat-box"><span>15.2k</span><label>Likes</label></div>
+    <div class="app">
+        <header>
+            <div class="premium-tag">
+                <span style="color: #0f0;">●</span> Status: Creative Mode
+            </div>
+            <h1>Premium<br>SMM Work</h1>
+        </header>
+
+        <div class="slider" id="scroller">
+            <div class="card">
+                <div class="card-content">
+                    <span class="category">Production</span>
+                    <div class="title">Создание вирального бренда</div>
+                    <div class="metrics">
+                        <div><span class="m-title">Growth</span><span class="m-num">+340%</span></div>
+                        <div><span class="m-title">Views</span><span class="m-num">2.4M</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <span class="category">Strategy</span>
+                    <div class="title">Запуск digital экосистемы</div>
+                    <div class="metrics">
+                        <div><span class="m-title">Leads</span><span class="m-num">1.8k</span></div>
+                        <div><span class="m-title">ROI</span><span class="m-num">450%</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <span class="category">Ads</span>
+                    <div class="title">Таргет на премиум сегмент</div>
+                    <div class="metrics">
+                        <div><span class="m-title">CTR</span><span class="m-num">3.2%</span></div>
+                        <div><span class="m-title">CPA</span><span class="m-num">$0.45</span></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="insta-card">
-            <div class="card-image-placeholder">🚀</div>
-            <div class="card-body">
-                <span class="card-tag">Startup</span>
-                <div class="card-title">Масштабирование личного бренда эксперта</div>
-                <div class="card-stats">
-                    <div class="stat-box"><span>8.4k</span><label>Followers</label></div>
-                    <div class="stat-box"><span>9.2%</span><label>ER</label></div>
-                </div>
-            </div>
+        <div class="footer-action">
+            <a href="https://t.me/alinur32" class="btn">СТАРТОВАТЬ ПРОЕКТ</a>
         </div>
     </div>
-
-    <div class="actions">
-        <a href="https://t.me/alinur32" class="btn-primary">Написать в Telegram</a>
-        <a href="#" class="btn-secondary">Посмотреть все кейсы</a>
-    </div>
-
-    <footer>© 2026 ALINUR PORTFOLIO</footer>
 
     <script>
-        // Добавляем эффект плавности для карточек при скролле
-        const container = document.querySelector('.feed-container');
-        const cards = document.querySelectorAll('.insta-card');
+        const scroller = document.getElementById('scroller');
+        const cards = document.querySelectorAll('.card');
 
-        container.addEventListener('scroll', () => {
+        const updateCards = () => {
+            const center = scroller.scrollLeft + scroller.offsetWidth / 2;
             cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const distanceFromCenter = Math.abs((window.innerWidth / 2) - (rect.left + rect.width / 2));
-                const scale = Math.max(0.95, 1 - (distanceFromCenter / 2000));
-                card.style.transform = `scale(${scale})`;
+                const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                const distance = Math.abs(center - cardCenter);
+                
+                if (distance < 150) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        };
+
+        scroller.addEventListener('scroll', updateCards);
+        window.addEventListener('load', updateCards);
+
+        // Haptic-эффект при нажатии (визуальный)
+        cards.forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.95)';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = '';
             });
         });
     </script>
