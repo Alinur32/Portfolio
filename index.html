@@ -3,25 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nur1.aep | Sula.core</title>
+<title>Sula.core</title>
 
 <style>
-/* ================= ROOT ================= */
 :root {
     --accent: #0ea5e9;
-    --bg: #f8fafc;
-    --bg-dark: #020617;
-    --glass: rgba(255,255,255,.7);
-    --glass-dark: rgba(255,255,255,.06);
+    --bg: linear-gradient(180deg, #ffffff 0%, #f0f9ff 60%, #e0f2fe 100%);
+    --card: rgba(255,255,255,.85);
     --text: #020617;
-    --text-dark: #e5e7eb;
     --radius-xl: 42px;
-    --radius-l: 32px;
     --ease: cubic-bezier(.2,1,.2,1);
 }
 
-/* ================= BASE ================= */
 * { box-sizing: border-box; }
+
 html, body {
     margin: 0;
     font-family: Inter, -apple-system, sans-serif;
@@ -29,62 +24,55 @@ html, body {
     color: var(--text);
     overflow-x: hidden;
 }
-body.dark {
-    background: var(--bg-dark);
-    color: var(--text-dark);
-}
 
-/* ================= INTRO ================= */
+/* ===== INTRO ===== */
 .intro {
     position: fixed;
     inset: 0;
-    background: #000;
-    color: #fff;
+    background: #fff;
     display: grid;
     place-items: center;
     z-index: 999;
-    animation: introOut 1s var(--ease) 2.4s forwards;
+    animation: introOut 1s var(--ease) 2.2s forwards;
 }
 .intro h1 {
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: 900;
     letter-spacing: 2px;
+    color: var(--accent);
     opacity: 0;
-    animation: fadeUp .9s var(--ease) .4s forwards;
+    animation: fadeUp .8s var(--ease) .4s forwards;
 }
 @keyframes introOut {
     to { opacity: 0; pointer-events: none; }
 }
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    to { opacity: 1; transform: none; }
 }
 
-/* ================= APP ================= */
+/* ===== APP ===== */
 .app {
     max-width: 520px;
     margin: auto;
     padding: 30px 0 120px;
 }
 
-/* ================= HEADER ================= */
+/* ===== HEADER ===== */
 header {
     padding: 0 24px 30px;
 }
 .badge {
     display: inline-flex;
-    gap: 8px;
-    padding: 10px 20px;
+    padding: 10px 22px;
     border-radius: 999px;
     font-size: 11px;
     font-weight: 900;
-    background: rgba(0,0,0,.06);
+    background: rgba(14,165,233,.08);
     color: var(--accent);
 }
-body.dark .badge {
-    background: rgba(255,255,255,.08);
-}
 
-/* ================= INFO ================= */
+/* ===== INFO ===== */
 .info {
     margin: 0 20px 40px;
     padding: 36px;
@@ -94,9 +82,6 @@ body.dark .badge {
     transform: translateY(40px);
     opacity: 0;
     transition: 1s var(--ease);
-}
-body.dark .info {
-    background: linear-gradient(135deg,#020617,#020617);
 }
 .info.show {
     transform: none;
@@ -110,7 +95,7 @@ body.dark .info {
 .info p {
     font-size: 17px;
     font-weight: 600;
-    opacity: .85;
+    opacity: .9;
 }
 .info ul {
     margin: 18px 0 0;
@@ -122,14 +107,14 @@ body.dark .info {
     font-weight: 500;
 }
 
-/* ================= TITLES ================= */
+/* ===== TITLES ===== */
 .section {
     margin: 40px 24px 18px;
     font-size: 24px;
     font-weight: 900;
 }
 
-/* ================= SLIDER ================= */
+/* ===== SLIDER ===== */
 .slider {
     display: flex;
     gap: 18px;
@@ -139,26 +124,23 @@ body.dark .info {
 }
 .slider::-webkit-scrollbar { display: none; }
 
-/* ================= CARDS ================= */
+/* ===== CARDS ===== */
 .card {
     min-width: 75vw;
     height: 280px;
     padding: 30px;
     border-radius: var(--radius-xl);
-    background: var(--glass);
-    backdrop-filter: blur(20px);
+    background: var(--card);
+    backdrop-filter: blur(18px);
     scroll-snap-align: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     transition: .6s var(--ease);
 }
-body.dark .card {
-    background: var(--glass-dark);
-}
 .card.active {
     transform: scale(1.06);
-    box-shadow: 0 40px 100px rgba(0,0,0,.35);
+    box-shadow: 0 40px 100px rgba(14,165,233,.25);
 }
 .card h3 {
     margin: 0 0 16px;
@@ -169,7 +151,7 @@ body.dark .card {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: 1px solid rgba(0,0,0,.08);
     padding-top: 16px;
 }
 .metrics span {
@@ -177,7 +159,7 @@ body.dark .card {
     font-weight: 900;
 }
 
-/* ================= VIDEO ================= */
+/* ===== VIDEO ===== */
 .v-card {
     min-width: 80vw;
     aspect-ratio: 9/16;
@@ -187,7 +169,7 @@ body.dark .card {
     position: relative;
     background: #000;
     scroll-snap-align: center;
-    box-shadow: 0 40px 100px rgba(0,0,0,.45);
+    box-shadow: 0 40px 100px rgba(0,0,0,.35);
 }
 .v-card video {
     width: 100%;
@@ -202,12 +184,12 @@ body.dark .card {
     font-size: 11px;
     font-weight: 900;
     color: #fff;
-    background: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.45);
     border-radius: 999px;
     backdrop-filter: blur(10px);
 }
 
-/* ================= CTA ================= */
+/* ===== CTA ===== */
 .cta {
     position: fixed;
     bottom: 20px;
@@ -219,7 +201,7 @@ body.dark .card {
 .cta a {
     height: 72px;
     border-radius: 40px;
-    background: #000;
+    background: linear-gradient(135deg,#0ea5e9,#38bdf8);
     color: #fff;
     font-weight: 900;
     font-size: 17px;
@@ -227,12 +209,7 @@ body.dark .card {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: .4s var(--ease);
-}
-
-/* MAGNETIC */
-.cta a:hover {
-    transform: scale(1.04);
+    box-shadow: 0 20px 50px rgba(14,165,233,.45);
 }
 </style>
 </head>
@@ -240,22 +217,22 @@ body.dark .card {
 <body>
 
 <div class="intro">
-    <h1>SULA.CORE</h1>
+    <h1>Nur1.AEP|Sula.Core</h1>
 </div>
 
 <div class="app">
 
 <header>
-    <div class="badge">● Nur1.aep | Sula.core</div>
+    <div class="badge">● sula.core</div>
 </header>
 
 <section class="info reveal">
     <h1>Видеопродакшн<br>полного цикла 🎥</h1>
-    <p>Мы создаём видео, которые цепляют и продают.</p>
+    <p>Создаём видео, которые удерживают внимание и продают.</p>
     <ul>
         <li>▫️ От идеи до финального рендера</li>
         <li>▫️ 4 года в индустрии</li>
-        <li><strong>▫️ Не монтаж — а смысл</strong></li>
+        <li><strong>▫️ Упаковка смысла, а не просто монтаж</strong></li>
     </ul>
 </section>
 
@@ -283,11 +260,15 @@ body.dark .card {
 <div class="slider">
     <div class="v-card">
         <div class="v-tag">SHOWREEL 2026</div>
-        <video src="Vid1_compressed.mp4" muted playsinline></video>
+        <video src="Vidl_compressed.mp4" controls playsinline></video>
     </div>
     <div class="v-card">
         <div class="v-tag">REELS EDIT</div>
-        <video src="Vid1_compressed.mp4" muted playsinline></video>
+        <video src="Vidl_compressed.mp4" controls playsinline></video>
+    </div>
+    <div class="v-card">
+        <div class="v-tag">MOTION DESIGN</div>
+        <video src="Vidl_compressed.mp4" controls playsinline></video>
     </div>
 </div>
 
@@ -298,11 +279,6 @@ body.dark .card {
 </div>
 
 <script>
-/* DARK MODE AUTO */
-if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.body.classList.add('dark');
-}
-
 /* REVEAL */
 const reveal = new IntersectionObserver(e =>
     e.forEach(i => i.isIntersecting && i.target.classList.add('show')),
@@ -320,15 +296,15 @@ slider.addEventListener('scroll', () => {
     });
 });
 
-/* VIDEO SMART PLAY */
+/* VIDEO PAUSE ON SCROLL */
 const vids = new IntersectionObserver(e =>
     e.forEach(v => {
         const video = v.target.querySelector('video');
-        v.isIntersecting ? video.play() : video.pause();
+        if (!v.isIntersecting) video.pause();
     }),
-{ threshold: .6 });
+{ threshold: .5 });
 document.querySelectorAll('.v-card').forEach(v => vids.observe(v));
 </script>
 
 </body>
-    </html>
+        </html>
