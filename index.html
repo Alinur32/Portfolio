@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Portfolio</title>
+    <title>Alinur Portfolio</title>
     <style>
         :root {
             --accent: #00f2ff;
@@ -11,7 +11,6 @@
             --card-bg: rgba(255, 255, 255, 0.05);
         }
 
-        /* Плавное появление всей страницы */
         @keyframes fadeInPage {
             from { opacity: 0; filter: blur(10px); }
             to { opacity: 1; filter: blur(0); }
@@ -20,7 +19,7 @@
         body {
             background: var(--bg);
             color: white;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -37,51 +36,29 @@
             z-index: -1;
         }
 
-        header {
-            padding: 80px 20px 40px;
-            text-align: center;
-        }
+        header { padding: 80px 20px 40px; text-align: center; }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin: 0;
             background: linear-gradient(45deg, #fff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            transform: translateY(20px);
-            animation: slideUp 0.8s ease-out 0.3s forwards;
-            opacity: 0;
         }
 
-        /* Анимация появления снизу вверх */
-        @keyframes slideUp {
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .container { 
-            width: 90%; 
-            max-width: 500px; 
-            perspective: 1000px;
-        }
+        .container { width: 90%; max-width: 450px; }
 
         .glass-card {
             background: var(--card-bg);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 25px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: 0.4s;
             opacity: 0;
-            transform: translateY(30px);
-        }
-
-        /* Эффект при наведении (или нажатии на телефоне) */
-        .glass-card:active, .glass-card:hover {
-            transform: scale(1.02) translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+            transform: translateY(20px);
         }
 
         .reveal { opacity: 1; transform: translateY(0); }
@@ -89,111 +66,57 @@
         .btn {
             display: block;
             width: 100%;
-            padding: 20px;
-            background: linear-gradient(45deg, #fff, #e0e0e0);
+            padding: 18px;
+            background: #fff;
             color: #000;
             text-align: center;
             text-decoration: none;
-            border-radius: 18px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+            border-radius: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.1);
         }
 
-        .btn:active { transform: scale(0.95); }
-
-        footer { margin: 50px; opacity: 0.4; font-size: 11px; letter-spacing: 1px; }
+        footer { margin: 40px; opacity: 0.3; font-size: 11px; }
     </style>
 </head>
 <body>
     <div class="bg-glow"></div>
 
     <header>
-        <h1 id="main-title">ALINUR</h1>
-        <p style="opacity: 0.6; margin-top: 10px;">CREATIVE DEVELOPER</p>
+        <h1>ALINUR</h1>
+        <p style="opacity: 0.6; letter-spacing: 2px;">CREATIVE DESIGNER</p>
     </header>
 
     <div class="container">
         <div class="glass-card">
-            <h3 style="color: var(--accent); margin: 0 0 10px 0;">PROJECTS</h3>
-            <p style="margin: 0; line-height: 1.6;">Создание адаптивных интерфейсов и работа с нейросетями.</p>
+            <h3 style="color: var(--accent); margin-top: 0;">PROJECTS</h3>
+            <p>Разработка интерфейсов и работа с веб-технологиями.</p>
         </div>
 
         <div class="glass-card">
-            <h3 style="color: var(--accent); margin: 0 0 10px 0;">EXPERIENCE</h3>
-            <p style="margin: 0; line-height: 1.6;">Mobile Development, Web Design, GitHub Pages.</p>
+            <h3 style="color: var(--accent); margin-top: 0;">SKILLS</h3>
+            <p>HTML • CSS • JavaScript • AI • Design</p>
         </div>
 
-        <a href="#" id="contact-btn" class="btn">ОТПРАВИТЬ СООБЩЕНИЕ</a>
+        <a href="https://t.me/твой_ник" class="btn">СВЯЗАТЬСЯ СО МНОЙ</a>
     </div>
 
     <footer>MADE ON SMARTPHONE • 2026</footer>
 
     <script>
-        // JS для появления элементов при скролле
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.glass-card');
-            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        // Добавляем задержку для каждой карточки, чтобы они появлялись по очереди
                         setTimeout(() => {
                             entry.target.classList.add('reveal');
                         }, index * 200);
                     }
                 });
             }, { threshold: 0.1 });
-
             cards.forEach(card => observer.observe(card));
-
-            // JS для интерактивности заголовка
-            const title = document.getElementById('main-title');
-            title.addEventListener('click', () => {
-                title.style.color = '#00f2ff';
-                setTimeout(() => title.style.color = '', 500);
-            });
         });
     </script>
 </body>
 </html>
-            box-shadow: 0 0 15px var(--accent);
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: white;
-            color: black;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        footer { margin: 40px; opacity: 0.3; font-size: 12px; }
-    </style>
-</head>
-<body>
-    <div class="bg-glow"></div>
-
-    <header>
-        <h1>DESIGNER</h1>
-        <p style="opacity: 0.5; letter-spacing: 2px;">PORTFOLIO</p>
-    </header>
-
-    <div class="container">
-        <div class="glass-card">
-            <h3 style="color: var(--accent); margin-top: 0;">PROJECTS</h3>
-            <p>Мой крутой проект, созданный полностью на смартфоне.</p>
-        </div>
-
-        <div class="glass-card">
-            <h3 style="color: var(--accent); margin-top: 0;">SKILLS</h3>
-            <p>UI/UX Design • Web Development • AI Tools</p>
-        </div>
-
-        <a href="
