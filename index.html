@@ -3,247 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALINUR | SMM PORTFOLIO</title>
+    <title>ALINUR | SMM DYNAMIC</title>
     <style>
         :root {
-            --blue-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --pink-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --green-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --accent: #0095f6;
+            --glass: rgba(255, 255, 255, 0.5); /* Чуть больше матовости для читаемости */
+            --glass-border: rgba(255, 255, 255, 0.4);
         }
 
-        /* 1. ЯРКИЙ ПЕРЕЛИВАЮЩИЙСЯ ФОН */
-        body {
-            margin: 0;
-            padding: 0;
+        /* 1. ИНТЕРАКТИВНЫЙ ФОН */
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
             font-family: 'Inter', -apple-system, sans-serif;
-            background: linear-gradient(120deg, #e0f2fe, #ffffff, #fce7f3, #e0f2fe);
-            background-size: 300% 300%;
-            animation: mainBgMove 10s ease infinite;
-            overflow-x: hidden;
+            background: #fff; /* Светлая база */
             color: #1a1a1b;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        @keyframes mainBgMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        #fluid-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            filter: blur(50px); /* Мягкое смешивание цветов */
         }
 
         .wrapper {
+            position: relative;
+            z-index: 1;
             max-width: 480px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* HEADER */
+        /* 2. ТВОИ КРУТЫЕ КОДЫ (СОХРАНЯЕМ СТИЛЬ) */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 50px;
         }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            background: var(--blue-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .live-label {
-            background: #fff;
-            padding: 8px 15px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 800;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: -1.5px; color: #000; }
+        .live-status { background: #fff; border: 1px solid #eee; padding: 8px 16px; border-radius: 100px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; }
 
-        /* HERO */
-        .hero { margin-bottom: 30px; }
-        .hero h1 { font-size: 42px; line-height: 0.9; margin: 0; font-weight: 800; }
-        .hero p { font-size: 17px; color: #666; margin-top: 15px; line-height: 1.4; }
+        .hero h1 { font-size: 46px; font-weight: 800; line-height: 0.95; letter-spacing: -2px; margin: 0; }
+        .hero p { font-size: 18px; color: #555; margin-top: 20px; line-height: 1.4; }
 
-        /* 2. БОЛЬШИЕ ГРАДИЕНТНЫЕ КАРТОЧКИ */
-        .case-scroller {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 20px;
-            padding: 20px 0 40px;
-            scrollbar-width: none;
+        /* МАССИВНЫЕ КАРТОЧКИ */
+        .scroller {
+            display: flex; overflow-x: auto; gap: 20px;
+            padding: 30px 0 50px; scrollbar-width: none;
         }
-        .case-scroller::-webkit-scrollbar { display: none; }
+        .scroller::-webkit-scrollbar { display: none; }
 
         .case-card {
-            min-width: 85vw;
-            height: 380px;
+            min-width: 85vw; height: 400px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: 40px;
-            padding: 40px;
-            box-sizing: border-box;
-            scroll-snap-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            color: white;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            padding: 40px; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
         }
 
-        /* Цвета карточек */
-        .case-card:nth-child(1) { background: var(--blue-gradient); }
-        .case-card:nth-child(2) { background: var(--purple-gradient); }
-        .case-card:nth-child(3) { background: var(--pink-gradient); }
+        .tag { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: 2px; }
+        .title { font-size: 30px; font-weight: 800; line-height: 1.1; margin: 15px 0; }
 
-        .case-tag { font-size: 12px; font-weight: 800; text-transform: uppercase; opacity: 0.8; letter-spacing: 2px; }
-        .case-title { font-size: 30px; font-weight: 800; line-height: 1.1; margin: 10px 0; }
-        
-        .case-stats { display: flex; gap: 25px; margin-top: auto; }
-        .stat-box b { font-size: 26px; display: block; }
-        .stat-box span { font-size: 11px; opacity: 0.7; text-transform: uppercase; }
+        .stats { display: flex; gap: 30px; }
+        .stat-n { font-size: 28px; font-weight: 800; display: block; }
+        .stat-l { font-size: 11px; opacity: 0.6; text-transform: uppercase; font-weight: 600; }
 
-        /* 3. СЕКЦИЯ ВИДЕО (НИЖЕ) */
-        .video-section { margin-top: 20px; }
-        .section-title { font-size: 26px; font-weight: 800; margin-bottom: 20px; }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        /* СЕТКА ВИДЕО ВНИЗУ */
+        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
+        .v-item { 
+            background: #000; height: 320px; border-radius: 30px; overflow: hidden; position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-
-        .video-item {
-            background: #000;
-            height: 300px;
-            border-radius: 30px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .video-item video { width: 100%; height: 100%; object-fit: cover; }
-        .v-tag { position: absolute; bottom: 15px; left: 15px; color: #fff; font-size: 12px; font-weight: 700; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .v-item video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .v-label { position: absolute; bottom: 20px; left: 20px; color: #fff; font-size: 12px; font-weight: 700; }
 
         /* КНОПКА */
-        .cta-container {
-            position: sticky;
-            bottom: 25px;
-            margin-top: 50px;
-            z-index: 100;
+        .cta-wrap { position: sticky; bottom: 30px; margin-top: 50px; }
+        .btn-main {
+            display: block; background: #000; color: #fff; text-align: center;
+            padding: 22px; border-radius: 25px; font-weight: 800; text-decoration: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        .cta-btn {
-            display: block;
-            background: #1a1a1b;
-            color: #fff;
-            text-align: center;
-            padding: 22px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 17px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        footer { text-align: center; padding: 40px 0; font-size: 12px; opacity: 0.3; }
+        footer { text-align: center; padding: 40px; opacity: 0.3; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
+    <canvas id="fluid-canvas"></canvas>
+
     <div class="wrapper">
         <header>
             <div class="logo">ALINUR.SMM</div>
-            <div class="live-label"><div class="dot"></div> ONLINE</div>
+            <div class="live-status"><div class="dot"></div> ONLINE</div>
         </header>
 
         <section class="hero">
-            <h1>Digital <br>Impact.</h1>
-            <p>Превращаю скучный контент в охваты и продажи. Только твердые цифры.</p>
+            <h1>Impactful<br>Content.</h1>
+            <p>Создаю визуальные стратегии, которые цепляют взгляд и приносят результат.</p>
         </section>
 
-        <div class="case-scroller">
+        <div class="scroller">
             <div class="case-card">
-                <div>
-                    <span class="case-tag">SMM Case #1</span>
-                    <h2 class="case-title">Рост охватов для бренда одежды</h2>
-                </div>
-                <div class="case-stats">
-                    <div class="stat-box"><b>1.2M</b><span>Reach</span></div>
-                    <div class="stat-box"><b>+5k</b><span>Followers</span></div>
+                <span class="tag">Strategy Case</span>
+                <h2 class="title">Рост охватов в 5 раз за месяц</h2>
+                <div class="stats">
+                    <div><span class="stat-n">1.8M</span><span class="stat-l">Views</span></div>
+                    <div><span class="stat-n">14%</span><span class="stat-l">ER</span></div>
                 </div>
             </div>
-
             <div class="case-card">
-                <div>
-                    <span class="case-tag">SMM Case #2</span>
-                    <h2 class="case-title">Стратегия для ресторана</h2>
-                </div>
-                <div class="case-stats">
-                    <div class="stat-box"><b>x3</b><span>Sales</span></div>
-                    <div class="stat-box"><b>8.5%</b><span>ER</span></div>
-                </div>
-            </div>
-
-            <div class="case-card">
-                <div>
-                    <span class="case-tag">SMM Case #3</span>
-                    <h2 class="case-title">Reels Продвижение</h2>
-                </div>
-                <div class="case-stats">
-                    <div class="stat-box"><b>500k</b><span>Views</span></div>
-                    <div class="stat-box"><b>Viral</b><span>Status</span></div>
+                <span class="tag">Visual Case</span>
+                <h2 class="title">Полный ребрендинг контента</h2>
+                <div class="stats">
+                    <div><span class="stat-n">Premium</span><span class="stat-l">Style</span></div>
+                    <div><span class="stat-n">High</span><span class="stat-l">LTV</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="video-section">
-            <h3 class="section-title">Video Works</h3>
-            <div class="video-grid">
-                <div class="video-item">
-                    <video src="1.mp4" muted loop playsinline onclick="this.play()"></video>
-                    <div class="v-tag">Commercial</div>
-                </div>
-                <div class="video-item">
-                    <video src="2.mp4" muted loop playsinline onclick="this.play()"></video>
-                    <div class="v-tag">Backstage</div>
-                </div>
-                <div class="video-item">
-                    <video src="3.mp4" muted loop playsinline onclick="this.play()"></video>
-                    <div class="v-tag">Lifestyle</div>
-                </div>
-                <div class="video-item">
-                    <video src="4.mp4" muted loop playsinline onclick="this.play()"></video>
-                    <div class="v-tag">Production</div>
-                </div>
+        <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px;">Selected Works</h3>
+        <div class="video-grid">
+            <div class="v-item">
+                <video src="1.mp4" loop muted playsinline onclick="this.play()"></video>
+                <div class="v-label">Commercial</div>
+            </div>
+            <div class="v-item">
+                <video src="2.mp4" loop muted playsinline onclick="this.play()"></video>
+                <div class="v-label">Backstage</div>
             </div>
         </div>
 
-        <div class="cta-container">
-            <a href="https://t.me/alinur32" class="cta-btn">ОБСУДИТЬ ПРОЕКТ</a>
+        <div class="cta-wrap">
+            <a href="https://t.me/alinur32" class="btn-main">ОБСУДИТЬ СОТРУДНИЧЕСТВО</a>
         </div>
 
-        <footer>© 2026 ALINUR PRO SMM</footer>
+        <footer>© 2026 ALINUR DIGITAL PRODUCTION</footer>
     </div>
 
     <script>
-        // Простой JS для плавности
-        document.querySelectorAll('.case-card').forEach(card => {
-            card.addEventListener('touchstart', () => {
-                card.style.transform = 'scale(0.98)';
-            });
-            card.addEventListener('touchend', () => {
-                card.style.transform = 'scale(1)';
-            });
+        /** ЖИДКИЙ ИНТЕРАКТИВНЫЙ ГРАДИЕНТ **/
+        const canvas = document.getElementById('fluid-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h, balls = [];
+
+        const mouse = { x: undefined, y: undefined, radius: 250 };
+
+        class Ball {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.radius = Math.random() * (w / 1.5) + w / 4;
+                this.color = ['#0095f6', '#f0f9ff', '#eef2ff', '#dcfce7'][Math.floor(Math.random() * 4)];
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+            }
+            draw() {
+                ctx.beginPath();
+                const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                g.addColorStop(0, this.color);
+                g.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.fillStyle = g;
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            update() {
+                // Отталкивание
+                const dx = this.x - mouse.x;
+                const dy = this.y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    this.vx += (dx / distance) * force * 1.2;
+                    this.vy += (dy / distance) * force * 1.2;
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Трение
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+
+                // Стенки
+                if (this.x < 0 || this.x > w) this.vx *= -1;
+                if (this.y < 0 || this.y > h) this.vy *= -1;
+                this.draw();
+            }
+        }
+
+        function init() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            balls = [];
+            for (let i = 0; i < 6; i++) balls.push(new Ball());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            ctx.globalCompositeOperation = 'multiply'; // Для красивого смешивания
+            balls.forEach(b => b.update());
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+        window.addEventListener('touchstart', (e) => { 
+            mouse.x = e.touches[0].clientX; 
+            mouse.y = e.touches[0].clientY; 
         });
+        window.addEventListener('resize', init);
+
+        init();
+        animate();
     </script>
 </body>
-                        </html>
-                        
+                                                             </html>
+                                                             
