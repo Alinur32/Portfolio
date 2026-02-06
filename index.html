@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nur1.aep  Sula.core</title>
+    <title>Nur1.aep | Sula.core</title>
     <style>
         :root {
             --accent: #0095f6;
@@ -41,6 +41,7 @@
             color: var(--accent); text-transform: uppercase;
         }
 
+        /* ИНФО-КАРТОЧКА */
         .info-card {
             margin: 0 20px 30px;
             background: var(--info-blue);
@@ -58,13 +59,17 @@
 
         .section-title { font-size: 24px; font-weight: 900; margin: 30px 25px 15px; letter-spacing: -0.5px; }
 
-        .slider {
+        /* СЛАЙДЕРЫ (ОБЩИЕ НАСТРОЙКИ) */
+        .slider-container {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
             gap: 15px; padding: 0 20px 30px; scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
-        .slider::-webkit-scrollbar { display: none; }
+        .slider-container::-webkit-scrollbar { display: none; }
+
+        /* КАРТОЧКИ ТЕКСТОВЫЕ */
         .card {
-            min-width: 75vw; height: 320px;
+            min-width: 75vw; height: 280px;
             background: var(--card-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 40px; scroll-snap-align: center;
@@ -74,33 +79,32 @@
             transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
         }
         .card.active { border-color: var(--accent); transform: scale(1.02); }
-        .card-title { font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
+        .card-title { font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
+        
         .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 15px; }
         .m-num { font-size: 18px; font-weight: 900; }
         .m-label { font-size: 9px; color: #888; text-transform: uppercase; }
 
-        /* ВЕРТИКАЛЬНЫЙ СПИСОК ВИДЕО (ПО ОДНОМУ В СТРОКУ) */
-        .video-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 0 20px 30px;
-        }
-
-        .v-item { 
-            background: #000; 
-            border-radius: 35px; 
-            overflow: hidden; 
+        /* КАРТОЧКИ ВИДЕО (СЛАЙДЕР) */
+        .v-card {
+            min-width: 80vw;
+            aspect-ratio: 9/16;
+            max-height: 60vh;
+            background: #000;
+            border-radius: 40px;
+            scroll-snap-align: center;
+            overflow: hidden;
             position: relative;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .v-item video { width: 100%; display: block; max-height: 75vh; object-fit: cover; }
+        .v-card video { width: 100%; height: 100%; object-fit: cover; display: block; }
         
         .v-label { 
-            position: absolute; top: 20px; left: 20px; color: #fff; 
-            font-size: 12px; font-weight: 700; background: rgba(0,0,0,0.4);
-            padding: 6px 14px; border-radius: 20px; backdrop-filter: blur(8px); z-index: 2;
+            position: absolute; top: 25px; left: 25px; color: #fff; 
+            font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.4);
+            padding: 8px 16px; border-radius: 20px; backdrop-filter: blur(10px); z-index: 2;
         }
 
         .footer-action { padding: 25px; position: sticky; bottom: 0; z-index: 100; }
@@ -118,7 +122,7 @@
 
     <div class="app-container">
         <header>
-            <div class="premium-tag">●Nur1.aep  Sula.core</div>
+            <div class="premium-tag">● Nur1.aep | Sula.core</div>
         </header>
 
         <div class="info-card">
@@ -133,39 +137,39 @@
 
         <h2 class="section-title">Наши достижения:</h2>
         
-        <div class="slider" id="scroller">
+        <div class="slider-container" id="text-scroller">
             <div class="card active">
-                <div class="card-title">Что то тут написать нужно</div>
+                <div class="card-title">Результаты охватов</div>
                 <div class="metrics">
-                    <div><span class="m-num">и тут</span><br><span class="m-label">Profit</span></div>
-                    <div><span class="m-num">тут тоже</span><br><span class="m-label">Reach</span></div>
+                    <div><span class="m-num">+340%</span><br><span class="m-label">Profit</span></div>
+                    <div><span class="m-num">1.2M</span><br><span class="m-label">Reach</span></div>
                 </div>
             </div>
             <div class="card">
-                <div class="card-title">и а эти тоже</div>
+                <div class="card-title">Премиум качество</div>
                 <div class="metrics">
-                    <div><span class="m-num">этот тоже</span><br><span class="m-label">Level</span></div>
-                    <div><span class="m-num">и тут или убрать карты</span><br><span class="m-label">Quality</span></div>
+                    <div><span class="m-num">Ultra HD</span><br><span class="m-label">Level</span></div>
+                    <div><span class="m-num">100%</span><br><span class="m-label">Quality</span></div>
                 </div>
             </div>
         </div>
 
-        <h2 class="section-title">Мои Проекты</h2>
+        <h2 class="section-title">Портфолио проектов: 👇</h2>
 
-        <div class="video-list">
-            <div class="v-item">
-                <div class="v-label">PROJECT 01</div>
-                <video src="Vid1_compressed.mp4" controls playsinline></video>
+        <div class="slider-container">
+            <div class="v-card">
+                <div class="v-label">SHOWREEL 2026</div>
+                <video src="Vidl_compressed.mp4" controls playsinline></video>
             </div>
             
-            <div class="v-item">
-                <div class="v-label">PROJECT 02</div>
-                <video src=".mp4" controls playsinline></video>
+            <div class="v-card">
+                <div class="v-label">REELS EDIT</div>
+                <video src="Vidl_compressed.mp4" controls playsinline></video>
             </div>
 
-            <div class="v-item">
-                <div class="v-label">PROJECT 03</div>
-                <video src=".mp4" controls playsinline></video>
+            <div class="v-card">
+                <div class="v-label">MOTION DESIGN</div>
+                <video src="Vidl_compressed.mp4" controls playsinline></video>
             </div>
         </div>
 
@@ -173,20 +177,29 @@
             <a href="https://t.me/nursnzz" class="btn">ОБСУДИТЬ ПРОЕКТ</a>
         </div>
 
-        <footer>© 2026 Nur1.aep  Sula.core</footer>
+        <footer>© 2026 Nur1.aep | Sula.core</footer>
     </div>
 
     <script>
-        const scroller = document.getElementById('scroller');
+        // Анимация масштабирования для текстовых карточек
+        const scroller = document.getElementById('text-scroller');
+        const cards = document.querySelectorAll('.card');
+
         const updateActive = () => {
             const center = scroller.scrollLeft + scroller.offsetWidth / 2;
-            document.querySelectorAll('.card').forEach(c => {
+            cards.forEach(c => {
                 const cCenter = c.offsetLeft + c.offsetWidth / 2;
-                if (Math.abs(center - cCenter) < 130) c.classList.add('active');
-                else c.classList.remove('active');
+                if (Math.abs(center - cCenter) < 130) {
+                    c.classList.add('active');
+                } else {
+                    c.classList.remove('active');
+                }
             });
         };
+
         scroller.addEventListener('scroll', updateActive);
+        window.addEventListener('load', updateActive);
     </script>
 </body>
-</html>
+                                                     </html>
+                                                     
