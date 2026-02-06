@@ -59,10 +59,7 @@ html, body {
     padding: 30px 0 110px;
 }
 
-/* ===== HEADER ===== */
-header {
-    padding: 0 24px 30px;
-}
+header { padding: 0 24px 30px; }
 .badge {
     display: inline-flex;
     padding: 10px 22px;
@@ -73,7 +70,6 @@ header {
     color: var(--accent);
 }
 
-/* ===== INFO ===== */
 .info {
     margin: 0 20px 40px;
     padding: 34px;
@@ -84,49 +80,23 @@ header {
     opacity: 0;
     transition: 1s var(--ease);
 }
-.info.show {
-    transform: none;
-    opacity: 1;
-}
-.info h1 {
-    font-size: 30px;
-    font-weight: 900;
-    line-height: 1.1;
-    margin: 0 0 14px;
-}
-.info .lead {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 18px;
-}
-.info ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.info li {
-    margin-bottom: 8px;
-    font-weight: 500;
-}
+.info.show { transform: none; opacity: 1; }
+.info h1 { font-size: 30px; font-weight: 900; line-height: 1.1; margin: 0 0 14px; }
+.info .lead { font-size: 17px; font-weight: 700; margin-bottom: 18px; }
+.info ul { margin: 0; padding: 0; list-style: none; }
+.info li { margin-bottom: 8px; font-weight: 500; }
 
-/* ===== TITLES ===== */
-.section {
-    margin: 40px 24px 18px;
-    font-size: 24px;
-    font-weight: 900;
-}
+.section { margin: 40px 24px 18px; font-size: 24px; font-weight: 900; }
 
-/* ===== SLIDER ===== */
 .slider {
     display: flex;
     gap: 18px;
-    padding: 0 20px;
+    padding: 0 20px 40px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
 }
 .slider::-webkit-scrollbar { display: none; }
 
-/* ===== CARDS ===== */
 .card {
     min-width: 75vw;
     height: 280px;
@@ -144,11 +114,7 @@ header {
     transform: scale(1.05);
     box-shadow: 0 40px 100px rgba(14,165,233,.25);
 }
-.card h3 {
-    margin: 0 0 16px;
-    font-size: 22px;
-    font-weight: 800;
-}
+.card h3 { margin: 0 0 16px; font-size: 22px; font-weight: 800; }
 .metrics {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -156,12 +122,9 @@ header {
     border-top: 1px solid rgba(0,0,0,.08);
     padding-top: 16px;
 }
-.metrics span {
-    font-size: 18px;
-    font-weight: 900;
-}
+.metrics span { font-size: 18px; font-weight: 900; }
 
-/* ===== VIDEO ===== */
+/* ===== ЗАЛИПАТЕЛЬНЫЕ ОБЛОЖКИ ВИДЕО ===== */
 .v-card {
     min-width: 80vw;
     aspect-ratio: 9/16;
@@ -178,6 +141,56 @@ header {
     height: 100%;
     object-fit: cover;
 }
+
+/* Элемент обложки */
+.v-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: linear-gradient(225deg, #0ea5e9, #bae6fd);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s var(--ease);
+}
+
+/* Когда видео запущено, скрываем обложку */
+.v-card.playing .v-cover {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.1);
+}
+
+.play-btn {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: 2px solid #fff;
+    animation: pulse 2s infinite;
+}
+
+.play-btn::after {
+    content: '';
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 15px 0 15px 25px;
+    border-color: transparent transparent transparent #ffffff;
+    margin-left: 5px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255,255,255,0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
 .v-tag {
     position: absolute;
     top: 20px;
@@ -189,9 +202,9 @@ header {
     background: rgba(0,0,0,.45);
     border-radius: 999px;
     backdrop-filter: blur(10px);
+    z-index: 10;
 }
 
-/* ===== CTA ===== */
 .cta {
     position: fixed;
     bottom: 20px;
@@ -199,6 +212,7 @@ header {
     transform: translateX(-50%);
     width: calc(100% - 40px);
     max-width: 480px;
+    z-index: 100;
 }
 .cta a {
     height: 72px;
@@ -214,14 +228,7 @@ header {
     box-shadow: 0 20px 50px rgba(14,165,233,.45);
 }
 
-/* ===== FOOTER ===== */
-footer {
-    text-align: center;
-    margin-top: 60px;
-    font-size: 11px;
-    font-weight: 700;
-    opacity: .4;
-}
+footer { text-align: center; margin-top: 60px; font-size: 11px; font-weight: 700; opacity: .4; }
 </style>
 </head>
 
@@ -239,9 +246,7 @@ footer {
 
 <section class="info reveal">
     <h1>Видеопродакшн<br>полного цикла 🎥</h1>
-    <p class="lead">
-        Ломаем баннерную слепоту. Создаем видео, которые досматривают.
-    </p>
+    <p class="lead">Ломаем баннерную слепоту. Создаем видео, которые досматривают.</p>
     <ul>
         <li>▫️ От хаоса в голове до готового рендера.</li>
         <li>▫️ 4 года в индустрии.</li>
@@ -250,7 +255,6 @@ footer {
 </section>
 
 <h2 class="section">Наши достижения</h2>
-
 <div class="slider" id="stats">
     <div class="card active">
         <h3>Результаты охватов</h3>
@@ -270,24 +274,36 @@ footer {
 
 <h2 class="section">Портфолио проектов</h2>
 
-<div class="slider">
-    <div class="v-card">
+<div class="slider" id="video-slider">
+    <div class="v-card" onclick="playVideo(this)">
         <div class="v-tag">SHOWREEL 2026</div>
-        <video src="Vid1_compressed.mp4" controls playsinline></video>
+        <div class="v-cover">
+            <div class="play-btn"></div>
+            <span style="color:white; font-weight:800; font-size:12px; letter-spacing:1px;">SMOOTH EDIT</span>
+        </div>
+        <video src="Vid1_compressed.mp4" playsinline loop></video>
     </div>
-    <div class="v-card">
+
+    <div class="v-card" onclick="playVideo(this)">
         <div class="v-tag">REELS EDIT</div>
-        <video src="Vid1_compressed.mp4" controls playsinline></video>
+        <div class="v-cover" style="background: linear-gradient(225deg, #38bdf8, #0ea5e9);">
+            <div class="play-btn"></div>
+            <span style="color:white; font-weight:800; font-size:12px; letter-spacing:1px;">VIRAL CONTENT</span>
+        </div>
+        <video src="Vid1_compressed.mp4" playsinline loop></video>
     </div>
-    <div class="v-card">
+
+    <div class="v-card" onclick="playVideo(this)">
         <div class="v-tag">MOTION DESIGN</div>
-        <video src="Vid1_compressed.mp4" controls playsinline></video>
+        <div class="v-cover" style="background: linear-gradient(225deg, #020617, #0ea5e9);">
+            <div class="play-btn"></div>
+            <span style="color:white; font-weight:800; font-size:12px; letter-spacing:1px;">PREMIUM LOOK</span>
+        </div>
+        <video src="Vid1_compressed.mp4" playsinline loop></video>
     </div>
 </div>
 
-<footer>
-    © 2026 Nur1.AEP | Sula.Core
-</footer>
+<footer>© 2026 Nur1.AEP | Sula.Core</footer>
 
 </div>
 
@@ -296,31 +312,54 @@ footer {
 </div>
 
 <script>
-/* REVEAL */
+/* REVEAL INFO BLOCK */
 const reveal = new IntersectionObserver(entries =>
     entries.forEach(e => e.isIntersecting && e.target.classList.add('show')),
 { threshold: 0.4 });
 document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
 
-/* ACTIVE CARD */
-const slider = document.getElementById('stats');
-const cards = [...slider.children];
-slider.addEventListener('scroll', () => {
-    const center = slider.scrollLeft + slider.offsetWidth / 2;
-    cards.forEach(c => {
+/* ACTIVE STATS CARDS */
+const statsSlider = document.getElementById('stats');
+const statsCards = [...statsSlider.children];
+statsSlider.addEventListener('scroll', () => {
+    const center = statsSlider.scrollLeft + statsSlider.offsetWidth / 2;
+    statsCards.forEach(c => {
         const cc = c.offsetLeft + c.offsetWidth / 2;
         c.classList.toggle('active', Math.abs(center - cc) < 120);
     });
 });
 
-/* VIDEO PAUSE ON SCROLL */
-const vids = new IntersectionObserver(entries =>
+/* VIDEO LOGIC */
+function playVideo(card) {
+    const video = card.querySelector('video');
+    
+    // Если видео уже играет — ставим на паузу, если нет — запускаем
+    if (video.paused) {
+        // Сначала ставим на паузу все остальные видео
+        document.querySelectorAll('video').forEach(v => {
+            v.pause();
+            v.parentElement.classList.remove('playing');
+        });
+        
+        video.play();
+        card.classList.add('playing');
+    } else {
+        video.pause();
+        card.classList.remove('playing');
+    }
+}
+
+/* PAUSE WHEN SCROLL OUT */
+const vidsObserver = new IntersectionObserver(entries =>
     entries.forEach(v => {
-        const video = v.target.querySelector('video');
-        if (!v.isIntersecting) video.pause();
+        if (!v.isIntersecting) {
+            const video = v.target.querySelector('video');
+            video.pause();
+            v.target.classList.remove('playing');
+        }
     }),
-{ threshold: 0.5 });
-document.querySelectorAll('.v-card').forEach(v => vids.observe(v));
+{ threshold: 0.2 });
+document.querySelectorAll('.v-card').forEach(v => vidsObserver.observe(v));
 </script>
 
 </body>
