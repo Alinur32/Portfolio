@@ -3,66 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Portfolio</title>
+    <title>Premium Portfolio</title>
     <style>
         :root {
             --accent: #00f2ff;
-            --bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
+            --bg: #0b0b0e;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Плавное появление всей страницы */
+        @keyframes fadeInPage {
+            from { opacity: 0; filter: blur(10px); }
+            to { opacity: 1; filter: blur(0); }
         }
 
         body {
             background: var(--bg);
             color: white;
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
             min-height: 100vh;
+            opacity: 0;
+            animation: fadeInPage 1.2s ease-out forwards;
         }
 
         .bg-glow {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -20%, #302b63, transparent 50%);
+            background: radial-gradient(circle at 50% 0%, #1a1a2e, transparent 70%);
             z-index: -1;
         }
 
         header {
-            padding: 60px 20px;
+            padding: 80px 20px 40px;
             text-align: center;
         }
 
         h1 {
-            font-size: 2.5rem;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-            background: linear-gradient(to bottom, #fff, #888);
+            font-size: 3rem;
+            margin: 0;
+            background: linear-gradient(45deg, #fff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out 0.3s forwards;
+            opacity: 0;
         }
 
-        .container { width: 90%; max-width: 450px; }
+        /* Анимация появления снизу вверх */
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .container { 
+            width: 90%; 
+            max-width: 500px; 
+            perspective: 1000px;
+        }
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            padding: 25px;
-            margin-bottom: 20px;
-            position: relative;
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 40%; height: 1px;
-            background: var(--accent);
+        /* Эффект при наведении (или нажатии на телефоне) */
+        .glass-card:active, .glass-card:hover {
+            transform: scale(1.02) translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+        }
+
+        .reveal { opacity: 1; transform: translateY(0); }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 18px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+        }
+
+        .btn:active { transform: scale(0.95); }
+
+        footer { margin: 50px; opacity: 0.4; font-size: 11px; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <header>
+        <h1 id="main-title">ALINUR</h1>
+        <p style="opacity: 0.6; margin-top: 10px;">CREATIVE DEVELOPER</p>
+    </header>
+
+    <div class="container">
+        <div class="glass-card">
+            <h3 style="color: var(--accent); margin: 0 0 10px 0;">PROJECTS</h3>
+            <p style="margin: 0; line-height: 1.6;">Создание адаптивных интерфейсов и работа с нейросетями.</p>
+        </div>
+
+        <div class="glass-card">
+            <h3 style="color: var(--accent); margin: 0 0 10px 0;">EXPERIENCE</h3>
+            <p style="margin: 0; line-height: 1.6;">Mobile Development, Web Design, GitHub Pages.</p>
+        </div>
+
+        <a href="#" id="contact-btn" class="btn">ОТПРАВИТЬ СООБЩЕНИЕ</a>
+    </div>
+
+    <footer>MADE ON SMARTPHONE • 2026</footer>
+
+    <script>
+        // JS для появления элементов при скролле
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.glass-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Добавляем задержку для каждой карточки, чтобы они появлялись по очереди
+                        setTimeout(() => {
+                            entry.target.classList.add('reveal');
+                        }, index * 200);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => observer.observe(card));
+
+            // JS для интерактивности заголовка
+            const title = document.getElementById('main-title');
+            title.addEventListener('click', () => {
+                title.style.color = '#00f2ff';
+                setTimeout(() => title.style.color = '', 500);
+            });
+        });
+    </script>
+</body>
+</html>
             box-shadow: 0 0 15px var(--accent);
         }
 
