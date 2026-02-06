@@ -3,32 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALINUR | SMM LEGEND PRO</title>
+    <title>Nur1.aep  Sula.core</title>
     <style>
         :root {
             --accent: #0095f6;
-            --bg: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.7);
+            --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f0f9ff 50%, #e0f2fe 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
             --text-main: #000000;
-            --text-sub: #666666;
+            --info-blue: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
         }
 
         body, html {
             margin: 0; padding: 0;
-            width: 100%; height: 100%;
+            width: 100%; min-height: 100%;
             font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg);
+            background: var(--bg-gradient);
+            background-attachment: fixed;
             color: var(--text-main);
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
-        }
-
-        /* ИНТЕРАКТИВНЫЙ ЖИДКИЙ ФОН */
-        #fluid-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            filter: blur(60px); /* Эффект мягких облаков */
         }
 
         .app-container {
@@ -36,10 +29,10 @@
             z-index: 1;
             max-width: 500px;
             margin: 0 auto;
-            padding: 40px 0;
+            padding: 30px 0;
         }
 
-        header { padding: 0 30px; margin-bottom: 30px; }
+        header { padding: 0 25px; margin-bottom: 20px; }
 
         .premium-tag {
             display: inline-flex; align-items: center; gap: 6px;
@@ -48,208 +41,152 @@
             color: var(--accent); text-transform: uppercase;
         }
 
-        h1 {
-            font-size: 48px; font-weight: 900; line-height: 0.9;
-            letter-spacing: -2px; margin: 20px 30px;
+        .info-card {
+            margin: 0 20px 30px;
+            background: var(--info-blue);
+            border-radius: 35px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 149, 246, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* ГИГАНТСКИЙ СЛАЙДЕР КЕЙСОВ */
+        .info-card h1 { font-size: 30px; font-weight: 900; line-height: 1.1; margin: 0 0 15px 0; color: #0369a1; }
+        .info-card .lead { font-size: 17px; font-weight: 700; margin-bottom: 20px; color: #075985; }
+        .features { font-size: 15px; color: #0c4a6e; }
+        .feature-item { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+        .outro { font-weight: 800; color: #0369a1; margin-top: 20px; font-size: 16px; }
+
+        .section-title { font-size: 24px; font-weight: 900; margin: 30px 25px 15px; letter-spacing: -0.5px; }
+
         .slider {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 20px; padding: 20px 30px 40px; scrollbar-width: none;
-            perspective: 1000px;
+            gap: 15px; padding: 0 20px 30px; scrollbar-width: none;
         }
         .slider::-webkit-scrollbar { display: none; }
-
         .card {
-            min-width: 85vw; height: 420px;
+            min-width: 75vw; height: 320px;
             background: var(--card-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 45px; scroll-snap-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 40px; scroll-snap-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
             display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 40px; box-sizing: border-box;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            transition: 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+            padding: 30px; box-sizing: border-box;
+            transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+        .card.active { border-color: var(--accent); transform: scale(1.02); }
+        .card-title { font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
+        .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 15px; }
+        .m-num { font-size: 18px; font-weight: 900; }
+        .m-label { font-size: 9px; color: #888; text-transform: uppercase; }
+
+        /* ВЕРТИКАЛЬНЫЙ СПИСОК ВИДЕО (ПО ОДНОМУ В СТРОКУ) */
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px 30px;
         }
 
-        .card.active {
-            box-shadow: 0 30px 60px rgba(0, 149, 246, 0.15);
-            border-color: rgba(0, 149, 246, 0.3);
-        }
-
-        .category { font-size: 12px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
-        .card-title { font-size: 30px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
-
-        .metrics {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 25px;
-        }
-        .m-num { font-size: 22px; font-weight: 900; color: var(--text-main); display: block; }
-        .m-label { font-size: 10px; color: var(--text-sub); text-transform: uppercase; font-weight: 700; }
-
-        /* СЕТКА ВИДЕО ВНИЗУ */
-        .video-section { padding: 20px 30px; }
-        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .v-item { 
-            background: #000; height: 300px; border-radius: 35px; overflow: hidden; position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: #000; 
+            border-radius: 35px; 
+            overflow: hidden; 
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
         }
-        .v-item video { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
-        .v-label { position: absolute; bottom: 15px; left: 15px; color: #fff; font-size: 11px; font-weight: 700; }
 
-        /* КНОПКА */
-        .footer-action { padding: 30px; position: sticky; bottom: 0; z-index: 10; }
+        .v-item video { width: 100%; display: block; max-height: 75vh; object-fit: cover; }
+        
+        .v-label { 
+            position: absolute; top: 20px; left: 20px; color: #fff; 
+            font-size: 12px; font-weight: 700; background: rgba(0,0,0,0.4);
+            padding: 6px 14px; border-radius: 20px; backdrop-filter: blur(8px); z-index: 2;
+        }
+
+        .footer-action { padding: 25px; position: sticky; bottom: 0; z-index: 100; }
         .btn {
-            background: #000; color: #fff; height: 75px; border-radius: 40px;
+            background: #000; color: #fff; height: 70px; border-radius: 35px;
             display: flex; align-items: center; justify-content: center;
             text-decoration: none; font-weight: 900; font-size: 17px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2); transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .btn:active { transform: scale(0.95); background: var(--accent); }
 
-        footer { text-align: center; padding: 40px; opacity: 0.3; font-size: 12px; font-weight: 700; }
+        footer { text-align: center; padding: 40px; opacity: 0.3; font-size: 11px; font-weight: 700; }
     </style>
 </head>
 <body>
 
-    <canvas id="fluid-canvas"></canvas>
-
     <div class="app-container">
         <header>
-            <div class="premium-tag">● Creative Legend</div>
+            <div class="premium-tag">●Nur1.aep  Sula.core</div>
         </header>
 
-        <h1>Premium<br>SMM Work</h1>
+        <div class="info-card">
+            <h1>Видеопродакшн<br>полного цикла 🎥</h1>
+            <p class="lead">Ломаем баннерную слепоту. Создаем видео, которые досматривают.</p>
+            <div class="features">
+                <div class="feature-item">▫️ От хаоса в голове до готового рендера.</div>
+                <div class="feature-item">▫️ 4 года в индустрии.</div>
+                <div class="outro">Не просто снимаем, а упаковываем смыслы.</div>
+            </div>
+        </div>
 
+        <h2 class="section-title">Наши достижения:</h2>
+        
         <div class="slider" id="scroller">
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <span class="category">Viral Growth</span>
-                    <div class="card-title">Масштабирование личного бренда</div>
-                    <div class="metrics">
-                        <div><span class="m-num">+340%</span><span class="m-label">Reach</span></div>
-                        <div><span class="m-num">2.4M</span><span class="m-label">Views</span></div>
-                    </div>
+            <div class="card active">
+                <div class="card-title">Что то тут написать нужно</div>
+                <div class="metrics">
+                    <div><span class="m-num">и тут</span><br><span class="m-label">Profit</span></div>
+                    <div><span class="m-num">тут тоже</span><br><span class="m-label">Reach</span></div>
                 </div>
             </div>
-
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <span class="category">Strategy</span>
-                    <div class="card-title">Digital экосистема для бизнеса</div>
-                    <div class="metrics">
-                        <div><span class="m-num">x4.5</span><span class="m-num">ROI</span></div>
-                        <div><span class="m-num">12.5%</span><span class="m-label">ER</span></div>
-                    </div>
+            <div class="card">
+                <div class="card-title">и а эти тоже</div>
+                <div class="metrics">
+                    <div><span class="m-num">этот тоже</span><br><span class="m-label">Level</span></div>
+                    <div><span class="m-num">и тут или убрать карты</span><br><span class="m-label">Quality</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="video-section">
-            <h2 style="font-size: 24px; font-weight: 900; margin-bottom: 20px;">Video Cases</h2>
-            <div class="video-grid">
-                <div class="v-item">
-                    <video src="Vid1_compressed.mp4" loop muted playsinline onclick="this.play()"></video>
-                    <div class="v-label">Ads Production</div>
-                </div>
-                <div class="v-item">
-                    <video src="2.mp4" loop muted playsinline onclick="this.play()"></video>
-                    <div class="v-label">Lifestyle Reels</div>
-                </div>
+        <h2 class="section-title">Мои Проекты</h2>
+
+        <div class="video-list">
+            <div class="v-item">
+                <div class="v-label">PROJECT 01</div>
+                <video src="Vidl_compressed.mp4" controls playsinline></video>
+            </div>
+            
+            <div class="v-item">
+                <div class="v-label">PROJECT 02</div>
+                <video src=".mp4" controls playsinline></video>
+            </div>
+
+            <div class="v-item">
+                <div class="v-label">PROJECT 03</div>
+                <video src=".mp4" controls playsinline></video>
             </div>
         </div>
 
         <div class="footer-action">
-            <a href="https://t.me/alinur32" class="btn" id="mag-btn">ОБСУДИТЬ ПРОЕКТ</a>
+            <a href="https://t.me/nursnzz" class="btn">ОБСУДИТЬ ПРОЕКТ</a>
         </div>
 
-        <footer>© 2026 ALINUR PRODUCTION</footer>
+        <footer>© 2026 Nur1.aep  Sula.core</footer>
     </div>
 
     <script>
-        /** 1. ИНТЕРАКТИВНЫЙ ФОН (ОТТАЛКИВАНИЕ) **/
-        const canvas = document.getElementById('fluid-canvas');
-        const ctx = canvas.getContext('2d');
-        let w, h, balls = [];
-        const mouse = { x: -1000, y: -1000 };
-
-        class Ball {
-            constructor() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.radius = Math.random() * (w / 1.2) + w / 4;
-                this.color = ['#dcfce7', '#f0f9ff', '#e0f2fe', '#fef2f2'][Math.floor(Math.random() * 4)];
-                this.vx = (Math.random() - 0.5) * 1.2;
-                this.vy = (Math.random() - 0.5) * 1.2;
-            }
-            update() {
-                const dx = this.x - mouse.x;
-                const dy = this.y - mouse.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                if(dist < 300) {
-                    this.vx += (dx/dist) * 0.5;
-                    this.vy += (dy/dist) * 0.5;
-                }
-                this.x += this.vx; this.y += this.vy;
-                this.vx *= 0.98; this.vy *= 0.98;
-                if(this.x<0 || this.x>w) this.vx *= -1;
-                if(this.y<0 || this.y>h) this.vy *= -1;
-
-                ctx.beginPath();
-                const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-                g.addColorStop(0, this.color); g.addColorStop(1, 'transparent');
-                ctx.fillStyle = g;
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-            balls = Array.from({length: 6}, () => new Ball());
-        }
-
-        function anim() {
-            ctx.clearRect(0,0,w,h);
-            ctx.globalCompositeOperation = 'multiply';
-            balls.forEach(b => b.update());
-            requestAnimationFrame(anim);
-        }
-
-        /** 2. 3D НАКЛОН КАРТОЧЕК **/
-        const cards = document.querySelectorAll('[data-tilt]');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const r = card.getBoundingClientRect();
-                const x = (e.clientX - r.left) / r.width - 0.5;
-                const y = (e.clientY - r.top) / r.height - 0.5;
-                card.style.transform = `perspective(1000px) rotateX(${-y*10}deg) rotateY(${x*10}deg) translateY(-10px) scale(1.02)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-
-        /** 3. ЛОГИКА АКТИВНОЙ КАРТОЧКИ **/
         const scroller = document.getElementById('scroller');
         const updateActive = () => {
             const center = scroller.scrollLeft + scroller.offsetWidth / 2;
             document.querySelectorAll('.card').forEach(c => {
                 const cCenter = c.offsetLeft + c.offsetWidth / 2;
-                if (Math.abs(center - cCenter) < 150) c.classList.add('active');
+                if (Math.abs(center - cCenter) < 130) c.classList.add('active');
                 else c.classList.remove('active');
             });
         };
-
-        window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
-        window.addEventListener('touchstart', e => { mouse.x = e.touches[0].x; mouse.y = e.touches[0].y; });
         scroller.addEventListener('scroll', updateActive);
-        window.addEventListener('resize', init);
-        
-        init(); anim(); updateActive();
     </script>
 </body>
-                        </html>
-                        
+</html>
