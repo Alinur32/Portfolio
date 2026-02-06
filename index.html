@@ -1,205 +1,334 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nur1.aep | Sula.core</title>
-    <style>
-        :root {
-            --accent: #0095f6;
-            --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f0f9ff 50%, #e0f2fe 100%);
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --text-main: #000000;
-            --info-blue: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nur1.aep | Sula.core</title>
 
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; min-height: 100%;
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-main);
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
+<style>
+/* ================= ROOT ================= */
+:root {
+    --accent: #0ea5e9;
+    --bg: #f8fafc;
+    --bg-dark: #020617;
+    --glass: rgba(255,255,255,.7);
+    --glass-dark: rgba(255,255,255,.06);
+    --text: #020617;
+    --text-dark: #e5e7eb;
+    --radius-xl: 42px;
+    --radius-l: 32px;
+    --ease: cubic-bezier(.2,1,.2,1);
+}
 
-        .app-container {
-            position: relative;
-            z-index: 1;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 30px 0;
-        }
+/* ================= BASE ================= */
+* { box-sizing: border-box; }
+html, body {
+    margin: 0;
+    font-family: Inter, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+body.dark {
+    background: var(--bg-dark);
+    color: var(--text-dark);
+}
 
-        header { padding: 0 25px; margin-bottom: 20px; }
+/* ================= INTRO ================= */
+.intro {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    z-index: 999;
+    animation: introOut 1s var(--ease) 2.4s forwards;
+}
+.intro h1 {
+    font-size: 28px;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp .9s var(--ease) .4s forwards;
+}
+@keyframes introOut {
+    to { opacity: 0; pointer-events: none; }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .premium-tag {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(0, 0, 0, 0.05); padding: 8px 16px;
-            border-radius: 100px; font-size: 11px; font-weight: 800;
-            color: var(--accent); text-transform: uppercase;
-        }
+/* ================= APP ================= */
+.app {
+    max-width: 520px;
+    margin: auto;
+    padding: 30px 0 120px;
+}
 
-        /* ИНФО-КАРТОЧКА */
-        .info-card {
-            margin: 0 20px 30px;
-            background: var(--info-blue);
-            border-radius: 35px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 149, 246, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
+/* ================= HEADER ================= */
+header {
+    padding: 0 24px 30px;
+}
+.badge {
+    display: inline-flex;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    background: rgba(0,0,0,.06);
+    color: var(--accent);
+}
+body.dark .badge {
+    background: rgba(255,255,255,.08);
+}
 
-        .info-card h1 { font-size: 30px; font-weight: 900; line-height: 1.1; margin: 0 0 15px 0; color: #0369a1; }
-        .info-card .lead { font-size: 17px; font-weight: 700; margin-bottom: 20px; color: #075985; }
-        .features { font-size: 15px; color: #0c4a6e; }
-        .feature-item { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-weight: 500; }
-        .outro { font-weight: 800; color: #0369a1; margin-top: 20px; font-size: 16px; }
+/* ================= INFO ================= */
+.info {
+    margin: 0 20px 40px;
+    padding: 36px;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg,#e0f2fe,#bae6fd);
+    box-shadow: 0 30px 80px rgba(14,165,233,.35);
+    transform: translateY(40px);
+    opacity: 0;
+    transition: 1s var(--ease);
+}
+body.dark .info {
+    background: linear-gradient(135deg,#020617,#020617);
+}
+.info.show {
+    transform: none;
+    opacity: 1;
+}
+.info h1 {
+    font-size: 30px;
+    font-weight: 900;
+    margin: 0 0 16px;
+}
+.info p {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: .85;
+}
+.info ul {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+}
+.info li {
+    margin-bottom: 8px;
+    font-weight: 500;
+}
 
-        .section-title { font-size: 24px; font-weight: 900; margin: 30px 25px 15px; letter-spacing: -0.5px; }
+/* ================= TITLES ================= */
+.section {
+    margin: 40px 24px 18px;
+    font-size: 24px;
+    font-weight: 900;
+}
 
-        /* СЛАЙДЕРЫ (ОБЩИЕ НАСТРОЙКИ) */
-        .slider-container {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 15px; padding: 0 20px 30px; scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .slider-container::-webkit-scrollbar { display: none; }
+/* ================= SLIDER ================= */
+.slider {
+    display: flex;
+    gap: 18px;
+    padding: 0 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+.slider::-webkit-scrollbar { display: none; }
 
-        /* КАРТОЧКИ ТЕКСТОВЫЕ */
-        .card {
-            min-width: 75vw; height: 280px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 40px; scroll-snap-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 30px; box-sizing: border-box;
-            transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
-        }
-        .card.active { border-color: var(--accent); transform: scale(1.02); }
-        .card-title { font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
-        
-        .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 15px; }
-        .m-num { font-size: 18px; font-weight: 900; }
-        .m-label { font-size: 9px; color: #888; text-transform: uppercase; }
+/* ================= CARDS ================= */
+.card {
+    min-width: 75vw;
+    height: 280px;
+    padding: 30px;
+    border-radius: var(--radius-xl);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: .6s var(--ease);
+}
+body.dark .card {
+    background: var(--glass-dark);
+}
+.card.active {
+    transform: scale(1.06);
+    box-shadow: 0 40px 100px rgba(0,0,0,.35);
+}
+.card h3 {
+    margin: 0 0 16px;
+    font-size: 22px;
+    font-weight: 800;
+}
+.metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-top: 16px;
+}
+.metrics span {
+    font-size: 18px;
+    font-weight: 900;
+}
 
-        /* КАРТОЧКИ ВИДЕО (СЛАЙДЕР) */
-        .v-card {
-            min-width: 80vw;
-            aspect-ratio: 9/16;
-            max-height: 60vh;
-            background: #000;
-            border-radius: 40px;
-            scroll-snap-align: center;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+/* ================= VIDEO ================= */
+.v-card {
+    min-width: 80vw;
+    aspect-ratio: 9/16;
+    max-height: 60vh;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+    background: #000;
+    scroll-snap-align: center;
+    box-shadow: 0 40px 100px rgba(0,0,0,.45);
+}
+.v-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.v-tag {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #fff;
+    background: rgba(0,0,0,.5);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+}
 
-        .v-card video { width: 100%; height: 100%; object-fit: cover; display: block; }
-        
-        .v-label { 
-            position: absolute; top: 25px; left: 25px; color: #fff; 
-            font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.4);
-            padding: 8px 16px; border-radius: 20px; backdrop-filter: blur(10px); z-index: 2;
-        }
+/* ================= CTA ================= */
+.cta {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 480px;
+}
+.cta a {
+    height: 72px;
+    border-radius: 40px;
+    background: #000;
+    color: #fff;
+    font-weight: 900;
+    font-size: 17px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .4s var(--ease);
+}
 
-        .footer-action { padding: 25px; position: sticky; bottom: 0; z-index: 100; }
-        .btn {
-            background: #000; color: #fff; height: 70px; border-radius: 35px;
-            display: flex; align-items: center; justify-content: center;
-            text-decoration: none; font-weight: 900; font-size: 17px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        footer { text-align: center; padding: 40px; opacity: 0.3; font-size: 11px; font-weight: 700; }
-    </style>
+/* MAGNETIC */
+.cta a:hover {
+    transform: scale(1.04);
+}
+</style>
 </head>
+
 <body>
 
-    <div class="app-container">
-        <header>
-            <div class="premium-tag">● Nur1.aep | Sula.core</div>
-        </header>
+<div class="intro">
+    <h1>SULA.CORE</h1>
+</div>
 
-        <div class="info-card">
-            <h1>Видеопродакшн<br>полного цикла 🎥</h1>
-            <p class="lead">Ломаем баннерную слепоту. Создаем видео, которые досматривают.</p>
-            <div class="features">
-                <div class="feature-item">▫️ От хаоса в голове до готового рендера.</div>
-                <div class="feature-item">▫️ 4 года в индустрии.</div>
-                <div class="outro">Не просто снимаем, а упаковываем смыслы.</div>
-            </div>
+<div class="app">
+
+<header>
+    <div class="badge">● Nur1.aep | Sula.core</div>
+</header>
+
+<section class="info reveal">
+    <h1>Видеопродакшн<br>полного цикла 🎥</h1>
+    <p>Мы создаём видео, которые цепляют и продают.</p>
+    <ul>
+        <li>▫️ От идеи до финального рендера</li>
+        <li>▫️ 4 года в индустрии</li>
+        <li><strong>▫️ Не монтаж — а смысл</strong></li>
+    </ul>
+</section>
+
+<h2 class="section">Результаты</h2>
+
+<div class="slider" id="stats">
+    <div class="card active">
+        <h3>Рост охватов</h3>
+        <div class="metrics">
+            <div><span>+340%</span><br>Profit</div>
+            <div><span>1.2M</span><br>Reach</div>
         </div>
-
-        <h2 class="section-title">Наши достижения:</h2>
-        
-        <div class="slider-container" id="text-scroller">
-            <div class="card active">
-                <div class="card-title">Результаты охватов</div>
-                <div class="metrics">
-                    <div><span class="m-num">+340%</span><br><span class="m-label">Profit</span></div>
-                    <div><span class="m-num">1.2M</span><br><span class="m-label">Reach</span></div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-title">Премиум качество</div>
-                <div class="metrics">
-                    <div><span class="m-num">Ultra HD</span><br><span class="m-label">Level</span></div>
-                    <div><span class="m-num">100%</span><br><span class="m-label">Quality</span></div>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title">Портфолио проектов: 👇</h2>
-
-        <div class="slider-container">
-            <div class="v-card">
-                <div class="v-label"> </div>
-                <video src="Vid1_compressed.mp4" controls playsinline></video>
-            </div>
-            
-            <div class="v-card">
-                <div class="v-label"> </div>
-                <video src="Vid1_compressed.mp4" controls playsinline></video>
-            </div>
-
-            <div class="v-card">
-                <div class="v-label"> </div>
-                <video src="Vid1_compressed.mp4" controls playsinline></video>
-            </div>
-        </div>
-
-        <div class="footer-action">
-            <a href="https://t.me/nursnzz" class="btn">ОБСУДИТЬ ПРОЕКТ</a>
-        </div>
-
-        <footer>© 2026 Nur1.aep | Sula.core</footer>
     </div>
+    <div class="card">
+        <h3>Premium уровень</h3>
+        <div class="metrics">
+            <div><span>Ultra HD</span><br>Level</div>
+            <div><span>100%</span><br>Quality</div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        // Анимация масштабирования для текстовых карточек
-        const scroller = document.getElementById('text-scroller');
-        const cards = document.querySelectorAll('.card');
+<h2 class="section">Портфолио</h2>
 
-        const updateActive = () => {
-            const center = scroller.scrollLeft + scroller.offsetWidth / 2;
-            cards.forEach(c => {
-                const cCenter = c.offsetLeft + c.offsetWidth / 2;
-                if (Math.abs(center - cCenter) < 130) {
-                    c.classList.add('active');
-                } else {
-                    c.classList.remove('active');
-                }
-            });
-        };
+<div class="slider">
+    <div class="v-card">
+        <div class="v-tag">SHOWREEL 2026</div>
+        <video src="Vid1_compressed.mp4" muted playsinline></video>
+    </div>
+    <div class="v-card">
+        <div class="v-tag">REELS EDIT</div>
+        <video src="Vid1_compressed.mp4" muted playsinline></video>
+    </div>
+</div>
 
-        scroller.addEventListener('scroll', updateActive);
-        window.addEventListener('load', updateActive);
-    </script>
+</div>
+
+<div class="cta">
+    <a href="https://t.me/nursnzz">ОБСУДИТЬ ПРОЕКТ</a>
+</div>
+
+<script>
+/* DARK MODE AUTO */
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.classList.add('dark');
+}
+
+/* REVEAL */
+const reveal = new IntersectionObserver(e =>
+    e.forEach(i => i.isIntersecting && i.target.classList.add('show')),
+{ threshold: .4 });
+document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
+
+/* ACTIVE CARD */
+const slider = document.getElementById('stats');
+const cards = [...slider.children];
+slider.addEventListener('scroll', () => {
+    const center = slider.scrollLeft + slider.offsetWidth / 2;
+    cards.forEach(c => {
+        const cc = c.offsetLeft + c.offsetWidth / 2;
+        c.classList.toggle('active', Math.abs(center - cc) < 120);
+    });
+});
+
+/* VIDEO SMART PLAY */
+const vids = new IntersectionObserver(e =>
+    e.forEach(v => {
+        const video = v.target.querySelector('video');
+        v.isIntersecting ? video.play() : video.pause();
+    }),
+{ threshold: .6 });
+document.querySelectorAll('.v-card').forEach(v => vids.observe(v));
+</script>
+
 </body>
-                    </html>
-                    
+    </html>
